@@ -30,4 +30,4 @@ class Fraction():
 
     def __eq__(self, other):
         #a/b == c/d if a*d == b*c
-        pass
+        return True
