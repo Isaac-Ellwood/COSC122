@@ -70,30 +70,49 @@ def time_linear_trial(filename):
     """ Times how long it takes to processes the
     given file with a LinearArray
     """
-    # ---start student section---
-    pass
-    # ===end student section===
+    test_array = LinearArray()
+    print('\nRunning trial on linear array with', filename)
+    start_time = time.perf_counter()
+    #process_file(filename, test_array)
+    end_time = time.perf_counter()
+    time_taken = end_time - start_time
+    print(f"Took {time_taken:.3f} seconds.")
+    return time_taken
 
 
 def time_bva_trial(filename, array_size):
     """ Times how long it takes to processes the
     given file with a BitVectorArray
     """
-    # ---start student section---
-    pass
-    # ===end student section===
+    test_array = BitVectorArray(array_size)
+    print('\nRunning trial on linear array with', filename)
+    start_time = time.perf_counter()
+    process_file('file0.txt', test_array)
+    end_time = time.perf_counter()
+    time_taken = end_time - start_time
+    print(f"Took {time_taken:.3f} seconds.")
+    return time_taken
 
 
 def main_tests():
     '''Do some file processing here...'''
 
     # for example, process file0 with a LinearArray
-    filename = 'file0.txt'
+    filename = 'file2.txt'
     print('Processing', filename, 'with a linear array')
     test_array = LinearArray()  # initialise a LinearArray
     process_file(filename, test_array)
 
-    # Add more tests here:)
+    # for example, process file2 with a SortedArray
+    filename = 'file2.txt'
+    print('Processing', filename, 'with a sorted array')
+    test_array = SortedArray()  # initialise a SortedArray
+    process_file(filename, test_array)
+
+    #Timed bva trials
+    print(time_bva_trial("file0.txt",100))
+    print(time_bva_trial("file3.txt",10000))
+    
 
     # call timing tests here when ready
 

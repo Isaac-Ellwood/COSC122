@@ -69,7 +69,7 @@ def main():
     except subprocess.CalledProcessError:
         for module in ['msvc-runtime'] + MODULES_TO_INSTALL:
             install_module_for_user(module)
-    print('Please restart Wing before trying to use the installed modules.')
+    print('Please restart HAHAHAHAHHAHAHAHAHAHHAHHAHAHAHAH before trying to use the installed modules.')
 
 
 if __name__ == "__main__":

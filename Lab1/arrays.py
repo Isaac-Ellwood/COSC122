@@ -80,12 +80,11 @@ class LinearArray():
         self.comparisons = 0
 
         # Loop through each item in the data list
-        # Add one to comparisons for each comparison
-        # involving a list element
-            # If the item is equal to our search value
-            # return the index this item is at
-        # If we loop through everything and haven't found
-        # the item, return None
+        for i in range(len(self.data)):
+            self.comparisons += 1
+            if self.data[i] == value:
+                return i
+        return None
 
     def __str__(self):
         """
@@ -154,8 +153,10 @@ class SortedArray():
         while lower_bound < upper_bound:
             index = (lower_bound + upper_bound) // 2
             if self.data[index] < value:
+                self.comparisons +=1
                 lower_bound = index + 1  # Look in the upper half
             else:
+                self.comparisons += 1
                 upper_bound = index     # Look in the lower half
 
         # the following will use the list insert method to insert
@@ -192,11 +193,14 @@ class SortedArray():
         upper_bound = len(self.data)
         while lower_bound < upper_bound:
             index = (lower_bound + upper_bound) // 2
+            self.comparisons += 1
             if self.data[index] == value:  # Found it!
                 return index
             if self.data[index] < value:
+                self.comparisons +=1
                 lower_bound = index + 1  # Look in the upper half
             else:
+                self.comparisons += 1
                 upper_bound = index      # Look in the lower half
         # If we haven't found it by now, it doesn't exist
         return None
