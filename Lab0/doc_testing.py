@@ -151,9 +151,10 @@ if __name__ == '__main__':
     # globs=None sets the global variables used in the tests to None
     # you don't need to know why, you just need to do it...
     doctest.run_docstring_examples(double_word, globs=None)
+    doctest.testmod()
 
     # the next test will initially fail - you should fix the code
-    # doctest.run_docstring_examples(multiply_word, globs=None)
+    doctest.run_docstring_examples(multiply_word, globs=None)
 
     # Complete the functions below so that they pass the tests
     # Remember passing the tests doesn't necessaryily mean that
