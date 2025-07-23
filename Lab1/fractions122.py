@@ -101,12 +101,3 @@ class MixedNumber():
         number_result = self.number + other.number
         fraction_result = self.fraction + other.fraction
         return MixedNumber(number_result, fraction_result)
-        
-
-fraction_1 = Fraction(3, 4)
-fraction_2 = Fraction(4, 6)
-mixed_num_1 = MixedNumber(2, fraction_1)
-print(mixed_num_1)
-mixed_num_2 = MixedNumber(1, fraction_2)
-print(mixed_num_2)
-print(mixed_num_1 + mixed_num_2)
