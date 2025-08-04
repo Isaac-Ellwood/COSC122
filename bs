@@ -1,0 +1,31 @@
+import math
+
+def find_primes(max):
+    primes = [2]
+
+    for i in range(3, max):
+        p = True
+        for prime in primes:
+            if(i%prime == 0):
+                p = False
+        if (p):
+            primes.append(i)
+
+    print(primes)
+
+def find_primes_faster(max):
+    primes = [2]
+    for i in range(3, max):
+        p = True
+        for prime in primes:
+            if prime < math.ceil(math.sqrt(i)):
+                (math.ceil(math.sqrt(106)))
+                if(i%prime == 0):
+                    p = False
+        if (p):
+            primes.append(i)
+
+    print(primes)
+
+find_primes(10000)
+find_primes_faster(10000)

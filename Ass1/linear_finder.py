@@ -32,7 +32,11 @@ def linear_stolen_plate_finder(stolen_plates, sighted_plates):
     result_list = []
     total_comparisons = 0
     # ---start student section---
-    pass
+    for sighted_plate in sighted_plates:
+        for stolen_plate in stolen_plates:
+            if sighted_plate == stolen_plate:
+                total_comparisons+=1
+                result_list.append(sighted_plate)
     # ===end student section===
     return result_list, total_comparisons
 
@@ -46,7 +50,10 @@ def run_tests():
     to help with developing your awesome answer code.
     You should leave this out of your submission """
     print('Tests are fun!')
-
+    from linear_finder import linear_stolen_plate_finder
+    sighted_plates = [2]
+    stolen_plates = [2, 3, 4, 5, 6]
+    print(linear_stolen_plate_finder(stolen_plates, sighted_plates))
 
 # You can leave the following out of your submission
 if __name__ == '__main__':
