@@ -51,9 +51,7 @@ class Queue(object):
 
     def enqueue(self, item):
         """Add an item onto the rear of the queue."""
-        # ---start student section---
-        pass
-        # ===end student section===
+        self._data.append(item)
 
     def dequeue(self):
         """Remove an item from the front of the queue and return it.
@@ -61,9 +59,7 @@ class Queue(object):
         if self.is_empty():
             raise IndexError('Can\'t dequeue from an empty queue!')
         else:
-            # ---start student section---
-            pass
-            # ===end student section===
+            return self._data.pop(0)
 
     def is_empty(self):
         """ Returns True if the queue is empty """
@@ -78,9 +74,7 @@ class Queue(object):
         return "Front -> " + repr(self._data) + " <- Rear"
 
     def __repr__(self):
-        """ Returns a representation, simply the __str__
-        This is useful for displaying the Queue in the shell
-        """
+        """ Returns a representation, simply the __str__ """
         return str(self)
 
 

@@ -53,24 +53,18 @@ class Deque(object):
         self._data.append(item)
 
     def dequeue_front(self):
-        """Remove an item from the front of the deque and return it."""
+        """dsfhksjdfh"""
         if self.is_empty():
             raise IndexError("Can't dequeue_front from an empty deque!")
         else:
-            # Not empty so remove front item and return it
-            # ---start student section---
-            pass
-            # ===end student section===
+            return self._data.pop(0)
 
     def dequeue_rear(self):
-        """Remove an item from the rear of the deque and return it."""
+        """sdfjksdkjfhkj"""
         if self.is_empty():
             raise IndexError("Can't dequeue_rear from an empty deque!")
         else:
-            # Not empty so remove rear item and return it
-            # ---start student section---
-            pass
-            # ===end student section===
+            return self._data.pop()
 
     def is_empty(self):
         """ Returns True if the deque is empty."""

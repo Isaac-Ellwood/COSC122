@@ -33,7 +33,52 @@ def time_stack_push(initial_size, n_trials):
 
 # Do some creative copy and pasting here to make functions for other time trials
 # ---start student section---
+def time_stack_pop(initial_size, n_trials):
+    """Finds average time for popping from a stack of a given initial size"""
+    s = Stack()
+    for _ in range(initial_size + n_trials):
+        s.push(random.randint(0, 127))
 
+    start_time = time.perf_counter()
+    for _ in range(n_trials):
+        s.pop()
+    end_time = time.perf_counter()
+    time_per_operation = (end_time - start_time) / n_trials
+
+    template = "Initial Stack size = {:,d} -> avg. time/pop for {:,d} pops is {:10.8f}"
+    print(template.format(initial_size, n_trials, time_per_operation))
+
+
+def time_queue_enqueue(initial_size, n_trials):
+    """Finds average time for enqueuing to a queue of a given initial size"""
+    q = Queue()
+    for _ in range(initial_size):
+        q.enqueue(random.randint(0, 127))
+
+    start_time = time.perf_counter()
+    for _ in range(n_trials):
+        q.enqueue(0)
+    end_time = time.perf_counter()
+    time_per_operation = (end_time - start_time) / n_trials
+
+    template = "Initial Queue size = {:,d} -> avg. time/enqueue for {:,d} enqueues is {:10.8f}"
+    print(template.format(initial_size, n_trials, time_per_operation))
+
+
+def time_queue_dequeue(initial_size, n_trials):
+    """Finds average time for dequeuing from a queue of a given initial size"""
+    q = Queue()
+    for _ in range(initial_size + n_trials):
+        q.enqueue(random.randint(0, 127))
+
+    start_time = time.perf_counter()
+    for _ in range(n_trials):
+        q.dequeue()
+    end_time = time.perf_counter()
+    time_per_operation = (end_time - start_time) / n_trials
+
+    template = "Initial Queue size = {:,d} -> avg. time/dequeue for {:,d} dequeues is {:10.8f}"
+    print(template.format(initial_size, n_trials, time_per_operation))
 # ===end student section===
 
 
@@ -45,7 +90,7 @@ def run_tests():
     initial_size = 1000000  # start with this many items in data structure
     n_trials = 100  # run this many trials and take the average time
 
-    time_stack_push(initial_size, n_trials)
+    time_queue_dequeue(initial_size, n_trials)
     # call your shiny new test functions here
 
 

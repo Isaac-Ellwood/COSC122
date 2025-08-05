@@ -56,7 +56,7 @@ class Stack(object):
     def push(self, item):
         """Push a new item onto the stack."""
         # ---start student section---
-        pass
+        self._data.append(item)
         # ===end student section===
 
     def pop(self):
@@ -71,7 +71,7 @@ class Stack(object):
             # not empty so write your code to remove the last
             # item from the data list and return it
             # ---start student section---
-            pass
+            return self._data.pop()
             # ===end student section===
 
     def peek(self):
@@ -79,7 +79,9 @@ class Stack(object):
         Returns None if the stack is empty
         """
         # ---start student section---
-        pass
+        if self.is_empty():
+            return None
+        return self._data[-1]
         # ===end student section===
 
     def is_empty(self):
