@@ -68,19 +68,11 @@ def calculate(operator, param1, param2):
 def evaluate_postfix(expression):
     """
     Evaluates an expression in postfix notation.
-    The expression is provided as a string with spaces between tokens, eg,
+    The expression is provided as a string with spaces between tokens, e.g.,
     '4 5 6 * +'
 
-    Operands in the given expression must be integers (this make parsing easier).
+    Operands in the given expression must be integers (this makes parsing easier).
     But, you should convert operands to floats before pushing onto the stack.
-
-    You can use the following to check if a token is an operator
-         if token in OP_PREC:
-    sure it will match ( or ) but postfix expressions don't have these :)
-
-    IMPORTANT NOTE:
-    Make sure you operate on operands in the correct order
-    For example:  3 2 -   should be 3 - 2, not 2 - 3
 
     >>> evaluate_postfix('2 3 +')
     5.0
@@ -99,12 +91,22 @@ def evaluate_postfix(expression):
     >>> evaluate_postfix('2 3 4 8 + * + 1 + 4 * 5 -')
     151.0
     """
-    # Code to evaluate the postfix expression and return the result goes here
-    # NOTE: Convert operands to floats before pushing onto the stack
     tokens = tokens_from_string(expression)
-    # ---start student section---
-    pass
-    # ===end student section===
+    stack = Stack()
+    
+    for token in tokens:
+        if token not in OP_PREC:
+            # Operand: convert to float and push
+            stack.push(float(token))
+        else:
+            # Operator: pop two operands, apply operation, push result
+            operand2 = stack.pop()
+            operand1 = stack.pop()
+            result = calculate(token, operand1, operand2)
+            stack.push(result)
+    
+    return stack.pop()
+
 
 
 def infix_to_postfix(infix_expression):
@@ -129,12 +131,37 @@ def infix_to_postfix(infix_expression):
     >>> infix_to_postfix('2 + 3 * 4 / (6 - 4) + 1')
     '2 3 4 * 6 4 - / + 1 +'
     """
-    # Code to process tokens and return the postfix string goes here
-    # Hint: if token not in OP_PREC then it is an operand
     tokens = tokens_from_string(infix_expression)
-    # ---start student section---
-    pass
-    # ===end student section===
+    stack = []
+    output = []
+
+    for token in tokens:
+        if token.isdigit():
+            # Operand: add to output
+            output.append(token)
+        elif token == '(':
+            stack.append(token)
+        elif token == ')':
+            # Pop until '('
+            while stack and stack[-1] != '(':
+                output.append(stack.pop())
+            if not stack:
+                raise ValueError("Mismatched parentheses")
+            stack.pop()  # Remove '('
+        else:
+            # Operator
+            while stack and stack[-1] != '(' and OP_PREC.get(stack[-1], 0) >= OP_PREC[token]:
+                output.append(stack.pop())
+            stack.append(token)
+
+    # Pop remaining operators
+    while stack:
+        if stack[-1] == '(' or stack[-1] == ')':
+            raise ValueError("Mismatched parentheses")
+        output.append(stack.pop())
+
+    return ' '.join(output)
+
 
 
 def evaluate_infix(infix_expression):
@@ -238,4 +265,6 @@ if __name__ == '__main__':
     # doctest.run_docstring_examples(infix_to_postfix, None)
     # doctest.run_docstring_examples(evaluate_infix, None)
     # doctest.run_docstring_examples(evaluate_prefix, None)
+    print(evaluate_postfix("5 1 + 6 2 8 * + 3 - 4 * 7 - * 2 + 5 1 6 2 - 8 * + 3 4 + * 7 - * +"))
+    print(infix_to_postfix("3 * 2 - ( 5 + 4 ) * 2 + 7 / 6 * ( 8 - 2 ) / ( 6 + 2 ) - 2 * ( 5 - 2 )"))
 
