@@ -28,7 +28,28 @@ def binary_stolen_plate_finder(stolen_plates, sighted_plates):
     result_list = []
     total_comparisons = 0
     # ---start student section---
-    pass
+    for sighted_plate in sighted_plates:
+        if(len(result_list) == len(stolen_plates)):
+            break
+
+        max = len(stolen_plates) - 1
+        min = 0
+    
+        while min <= max:
+            mid = (min + max) // 2
+            total_comparisons += 1
+            if stolen_plates[mid] == sighted_plate:
+                result_list.append(sighted_plate)
+                break
+            else:
+                total_comparisons += 1
+                if stolen_plates[mid] < sighted_plate:
+                    min = mid + 1
+                else:
+                    max = mid - 1
+
+
+
     # ===end student section===
     return result_list, total_comparisons
 
@@ -42,6 +63,10 @@ def run_tests():
     """ Use this function to run some simple tests 
     to help with developing your awesome answer code.
     You should leave this out of your submission """
+    stolen_plates = [2,55798,7000000]
+    sighted_plates = [2, 3 , 55798, 7000000]
+    thing = binary_stolen_plate_finder(stolen_plates, sighted_plates)
+    print(thing)
     print('Tests are fun!')
 
 

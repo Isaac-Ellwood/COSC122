@@ -33,6 +33,8 @@ def linear_stolen_plate_finder(stolen_plates, sighted_plates):
     total_comparisons = 0
     # ---start student section---
     for sighted_plate in sighted_plates:
+        if(len(stolen_plates) == len(result_list)):
+            break
         for stolen_plate in stolen_plates:
             total_comparisons+=1
             if sighted_plate == stolen_plate:
