@@ -96,7 +96,9 @@ class Stack:
     def push(self, item):
         """push a new item on to the stack"""
         # ---start student section---
-        pass
+        new_node = Node(item)
+        new_node.next_node = self.head
+        self.head = new_node
         # ===end student section===
 
     def pop(self):
@@ -106,7 +108,11 @@ class Stack:
         # use the following line to raise error when stack is empty
         # raise IndexError("Can't pop from empty stack.")
         # ---start student section---
-        pass
+        if self.head is None:
+            raise IndexError("Can't pop from empty stack.")
+        popped_item = self.head.item
+        self.head = self.head.next_node
+        return popped_item
         # ===end student section===
 
     def peek(self):
@@ -115,22 +121,22 @@ class Stack:
         """
         if self.is_empty():
             raise IndexError("Can't peek at empty stack.")
-        else:
-            # ---start student section---
-            pass
-            # ===end student section===
+        return self.head.item
 
     def is_empty(self):
         """ Returns True if the stack is empty """
         # ---start student section---
-        pass
+        return self.head is None
         # ===end student section===
 
     def __len__(self):
         """ Returns the length --- calling len(s) will invoke this method """
-        # ---start student section---
-        pass
-        # ===end student section===
+        current = self.head
+        count = 0
+        while current:
+            count += 1
+            current = current.next_node
+        return count
 
     def __str__(self):
         """Returns a string representation of the list for the stack starting
@@ -187,6 +193,14 @@ class Queue:
     'a'
     >>> print(q)
     Queue: head/front -> b -> c -> None
+    >>> q = Queue()
+    >>> q.enqueue('x')
+    >>> q.dequeue()
+    'x'
+    >>> len(q)
+    0
+    >>> print(q)
+    Queue: head/front -> None
     """
 
     def __init__(self):
@@ -197,32 +211,42 @@ class Queue:
         Note: The front of the queue is stored at the head of the list
         so adding to the rear requires finding the end of the list
         """
-        # ---start student section---
-        pass
-        # ===end student section===
+        new_node = Node(item)
+        if self.head is None:
+            # Queue is empty, new node becomes head
+            self.head = new_node
+        else:
+            # Traverse to the last node and add new_node there
+            current = self.head
+            while current.next_node is not None:
+                current = current.next_node
+            current.next_node = new_node
 
     def dequeue(self):
         """Remove an item from the head of the queue and return it.
         If queue is empty you should raise an IndexError as per
         the comment below."""
-        # use the following line to raise error when queue is empty
-        # raise IndexError("Can't dequeue from empty queue.")
-        # ---start student section---
-        pass
-        # ===end student section===
+        if self.head is None:
+            raise IndexError("Can't dequeue from empty queue.")
+        removed_item = self.head.item
+        self.head = self.head.next_node
+        return removed_item
 
     def is_empty(self):
         """ returns True if the queue is empty """
         # ---start student section---
-        pass
+        return self.head is None
         # ===end student section===
 
     def __len__(self):
         """ Returns the length --- calling len(q) will invoke this method """
-        # ---start student section---
-        pass
-        # ===end student section===
-
+        current = self.head
+        count = 0
+        while current is not None:
+            count += 1
+            current = current.next_node
+        return count
+    
     def __str__(self):
         """Returns a string representation of the list for the queue starting
         from the beginning of the list. Items are separated by ->

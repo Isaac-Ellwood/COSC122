@@ -175,7 +175,17 @@ class UnsortedFreqList(FreqList):
           3:  'a' = 2
         """
         # ---start student section---
-        pass
+        current = self.head
+        while current is not None:
+            if current.item == item:
+                current.increment()
+                return
+            current = current.next_node
+       
+        # Item not found, create a new node and insert at head
+        new_node = FreqNode(item)
+        new_node.next_node = self.head
+        self.head = new_node        
         # ===end student section===
 
 
@@ -223,7 +233,23 @@ class NicerUnsortedFreqList(FreqList):
           3:  'c' = 1
         """
         # ---start student section---
-        pass
+        if self.head is None:
+            # Empty list, add first node
+            self.head = FreqNode(item)
+            return
+       
+        current = self.head
+        while current is not None:
+            if current.item == item:
+                current.increment()
+                return
+            if current.next_node is None:
+                # Reached last node without finding item
+                break
+            current = current.next_node
+       
+        # Append new node at the end
+        current.next_node = FreqNode(item)        
         # ===end student section===
 
 
@@ -372,7 +398,24 @@ class SortedFreqList(FreqList):
         """
         # make sure you read the docstring for this method!
         # ---start student section---
-        pass
+        if self.head is None:
+                    self.head = FreqNode(item)
+                    return
+        prev = None
+        cur = self.head
+        while cur is not None:
+            if cur.item == item:
+                cur.increment()
+                if prev is not None and cur.frequency > prev.frequency:
+                    prev.next_node = cur.next_node
+                    self._insert_in_order(cur)
+                return
+            prev = cur
+            cur = cur.next_node
+       
+        new_node = FreqNode(item)
+        self._insert_in_order(new_node)
+               
         # ===end student section===
 
 

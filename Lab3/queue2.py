@@ -83,7 +83,15 @@ class Queue2:
     def enqueue(self, item):
         """Add an item onto the tail of the queue."""
         # ---start student section---
-        pass
+        new_node = Node(item)
+        if self.tail is None:
+            # Queue is empty, new node is both head and tail
+            self.head = new_node
+            self.tail = new_node
+        else:
+            # Append new node at the tail
+            self.tail.next_node = new_node
+            self.tail = new_node
         # ===end student section===
 
     def dequeue(self):
@@ -93,19 +101,31 @@ class Queue2:
         # use the following line to raise error if stack is empty
         # raise IndexError("Can't dequeue from empty queue.")
         # ---start student section---
-        pass
+        if self.head is None:
+            raise IndexError("Can't dequeue from empty queue.")
+        removed_item = self.head.item
+        self.head = self.head.next_node
+        # If queue is now empty, tail must also be None
+        if self.head is None:
+            self.tail = None
+        return removed_item
         # ===end student section===
 
     def is_empty(self):
         """ Returns True if the Queue is empty """
         # ---start student section---
-        pass
+        return self.head is None
         # ===end student section===
 
     def __len__(self):
         """ Returns the length --- calling len(q) will invoke this method"""
         # ---start student section---
-        pass
+        current = self.head
+        count = 0
+        while current:
+            count += 1
+            current = current.next_node
+        return count
         # ===end student section===
 
     def __str__(self):

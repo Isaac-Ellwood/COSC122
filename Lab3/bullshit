@@ -1,0 +1,15 @@
+from linked_list_structures import Stack
+from linked_list_structures import Queue
+
+my_queue = Queue()
+my_queue.enqueue('a')
+my_queue.enqueue('b')
+my_queue.enqueue('c')
+my_queue.enqueue('d')
+
+
+my_stack = Stack()
+my_stack.push('a')
+my_stack.push('b')
+my_stack.push('c')
+my_stack.push('d')
