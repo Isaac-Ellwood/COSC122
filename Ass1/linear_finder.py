@@ -1,5 +1,5 @@
-""" Your docstring should go here
-Along with your name and email address
+""" Linear Finder
+Isaac Ellwood iel17@uclive.ac.nz
 """
 
 import classes
@@ -34,9 +34,11 @@ def linear_stolen_plate_finder(stolen_plates, sighted_plates):
     # ---start student section---
     for sighted_plate in sighted_plates:
         for stolen_plate in stolen_plates:
+            total_comparisons+=1
             if sighted_plate == stolen_plate:
-                total_comparisons+=1
                 result_list.append(sighted_plate)
+                break
+            
     # ===end student section===
     return result_list, total_comparisons
 
