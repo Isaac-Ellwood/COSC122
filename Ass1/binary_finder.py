@@ -3,7 +3,9 @@ Along with your name and email address
 """
 
 import classes
-
+import math
+from stats import StatCounter
+from classes import *
 
 
 
@@ -28,27 +30,30 @@ def binary_stolen_plate_finder(stolen_plates, sighted_plates):
     result_list = []
     total_comparisons = 0
     # ---start student section---
+    
     for sighted_plate in sighted_plates:
-        if(len(result_list) == len(stolen_plates)):
+        if(len(stolen_plates) == len(result_list)):
+            print("lets end this early")
             break
 
-        max = len(stolen_plates) - 1
-        min = 0
-    
-        while min <= max:
-            mid = (min + max) // 2
-            total_comparisons += 1
-            if stolen_plates[mid] == sighted_plate:
+        begin_i = 0
+        end_i = len(stolen_plates) - 1
+
+        while begin_i <= end_i:
+            mid_i = begin_i + (end_i - begin_i) // 2
+
+            mid_val = stolen_plates[mid_i]
+
+            total_comparisons +=1
+            if(sighted_plate == mid_val):
                 result_list.append(sighted_plate)
                 break
+            elif(sighted_plate < mid_val):
+                total_comparisons += 1
+                end_i = mid_i - 1
             else:
                 total_comparisons += 1
-                if stolen_plates[mid] < sighted_plate:
-                    min = mid + 1
-                else:
-                    max = mid - 1
-
-
+                begin_i = mid_i + 1
 
     # ===end student section===
     return result_list, total_comparisons
@@ -63,12 +68,33 @@ def run_tests():
     """ Use this function to run some simple tests 
     to help with developing your awesome answer code.
     You should leave this out of your submission """
-    stolen_plates = [2,55798,7000000]
-    sighted_plates = [2, 3 , 55798, 7000000]
+    my_numberplate1 = NumberPlate('ABC123')
+    my_numberplate2 = NumberPlate('XYZ789')
+    #stolen_plates = [my_numberplate1, my_numberplate2]
+    stolen_plates = [
+    NumberPlate('ABC123'),
+    NumberPlate('BCD234'),
+    NumberPlate('CDE345'),
+    NumberPlate('DEF456'),
+    NumberPlate('EFG567'),
+    NumberPlate('FGH678'),
+    NumberPlate('GHI789'),
+    NumberPlate('HIJ890'),
+    NumberPlate('IJK901'),
+    NumberPlate('JKL012')
+    ]
+    sighted_plates = [
+    NumberPlate('DEF456'),
+    NumberPlate('ABC123'),
+    NumberPlate('GHI789'),
+    NumberPlate('BCD234'),
+    NumberPlate('JKL012')
+    ]
+
     thing = binary_stolen_plate_finder(stolen_plates, sighted_plates)
     print(thing)
     print('Tests are fun!')
-
+    print(StatCounter.get_comparisons())
 
 
 if __name__ == '__main__':
