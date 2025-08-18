@@ -1,9 +1,10 @@
-""" Your docstring should go here
-Along with your name and email address
+""" Binary Finder
+Isaac Ellwood iel17@uclive.ac.nz
 """
 
 import classes
-import math
+
+#not needed
 from stats import StatCounter
 from classes import *
 
