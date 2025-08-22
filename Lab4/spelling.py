@@ -118,7 +118,7 @@ class ChainingHashTable():
         # NOTE:
         # We will use a trivial hash function here to start with
         # Don't worry, you will get to update it later in the lab...
-        return 0
+        return nice_hash(item) % self.n_slots
 
     def store(self, item):
         """Appends an item to the list in the slot at _data[hash]."""
@@ -168,7 +168,9 @@ class ChainingHashTable():
         # remember self._data[index] contains a list of items that hash to
         # the slot at the given index
         # ---start student section---
-        pass
+        index = self._hash(item)
+        chain = self._data[index]
+        return item in chain
         # ===end student section===
 
 
@@ -245,7 +247,7 @@ class LinearHashTable():
         to reduce it down to a number in the range 0..self.n_slots
         """
         # ---start student section---
-        pass
+        return nice_hash(item) % self.n_slots
         # ===end student section===
 
 
@@ -262,7 +264,21 @@ class LinearHashTable():
             raise IndexError("Hash table is full!!!!")
         # ***********************************************************
         # ---start student section---
-        pass
+        # Get initial slot
+        index = self._hash(item)
+
+        # If slot is empty, store item
+        if self._data[index] is None:
+            self._data[index] = item
+        else:
+            # Linear probing: try next slot until empty is found
+            i = 1
+            new_index = (index + i) % self.n_slots
+            while self._data[new_index] is not None:
+                i += 1
+                new_index = (index + i) % self.n_slots
+            self._data[new_index] = item
+
         # ===end student section===
 
         # Keep track of number of items in hash table
@@ -419,7 +435,7 @@ class QuadraticHashTable():
         to reduce it down to a number in the range 0..self.n_slots
         """
         # ---start student section---
-        pass
+        return nice_hash(item) % self.n_slots
         # ===end student section===
 
     def _next_free_slot(self, first_hash):
@@ -472,7 +488,15 @@ class QuadraticHashTable():
             raise ValueError("Hash table is full!!!!")
         # **************************************************
         # ---start student section---
-        pass
+        # Get initial hash slot
+        first_hash = self._hash(item)
+
+        if self._data[first_hash] is None:
+            self._data[first_hash] = item
+        else:
+            # Collision, quadratic probing to find free slot
+            free_slot = self._next_free_slot(first_hash)
+            self._data[free_slot] = item
         # ===end student section===
         self.n_items += 1
 
@@ -494,7 +518,18 @@ class QuadraticHashTable():
         try_number = 0
         current_index = first_hash
         # ---start student section---
-        pass
+        first_hash = self._hash(item)
+        try_number = 0
+        while try_number < self.n_slots:
+            curr_index = (first_hash + try_number**2) % self.n_slots
+            if self._data[curr_index] is None:
+                # Empty slot means item not found
+                return False
+            if self._data[curr_index] == item:
+                return True
+            try_number += 1
+        # Searched whole table, item not found
+        return False
         # ===end student section===
 
     def __str__(self):
@@ -567,7 +602,13 @@ def spellcheck_with_list(
     start_check_time = perf_counter()
     # start
     # ---start student section---
-    pass
+    for word in document_word_list:
+        if word not in dictionary_word_list:
+            num_errors += 1
+            if word not in unique_errors:
+                unique_errors.add(word)
+
+        
     # ===end student section===
     # end
     end_check_time = perf_counter()
@@ -644,7 +685,15 @@ def spellcheck_with_hashtable(document_word_list,
     # ---- start -----
     start_check_time = perf_counter()
     # ---start student section---
-    pass
+    for word in document_word_list:
+        if word not in hash_table:
+            
+            num_errors += 1
+            if not quiet_mode:
+                print(f"{num_errors}: {word}")
+            if word not in unique_errors:
+                unique_errors.add(word)
+                
     # ===end student section===
     end_check_time = perf_counter()
     # ---- end ----

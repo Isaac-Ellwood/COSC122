@@ -13,7 +13,7 @@ DOCS = ['sherlock.txt', 'trgov.txt', 'humnature.txt']
 dictionary_word_list = load_dict_words("words_latin-1.txt")
 
 
-doc_word_list = load_doc_words("sherlock.txt")
+doc_word_list = load_doc_words("humnature.txt")
 # also try with other texts
 
 
@@ -25,8 +25,9 @@ doc_word_list = load_doc_words("sherlock.txt")
 # the raw dicionary (ie the simple list of words in the dictionary) to do
 # it's checking
 
-check_time = spellcheck_with_list(doc_word_list, dictionary_word_list)
-
+#check_time = spellcheck_with_list(doc_word_list, dictionary_word_list)
+#check_time = spellcheck_with_hashtable(doc_word_list, dictionary_word_list, 'Chaining', 11)
+spellcheck_with_hashtable("humnature.txt", "words_latin-1.txt", 'Quadratic', 700001)
 
 
 # see http://www.bigprimes.net/archive/prime/
@@ -126,12 +127,12 @@ sizes = [650011, 700001, 800011, 2000003, 3000017, 5000011, 10000019]
 # print(hash_table)
 
 
-hash_table = LinearHashTable(7)
-hash_table.store('Aby')
-hash_table.store('Ken')
-hash_table.store('Nat')
-hash_table.store('Jim')
-print(hash_table)
+#hash_table = LinearHashTable(7)
+#hash_table.store('Aby')
+#hash_table.store('Ken')
+#hash_table.store('Nat')
+#hash_table.store('Jim')
+#print(hash_table)
 
 
 # hash_table = LinearHashTable(7)
@@ -142,13 +143,13 @@ print(hash_table)
 # print(hash_table)
 
 
-hash_table = LinearHashTable(7)
-hash_table.store('Moe')
-hash_table.store('Bob')
-hash_table.store('Zac')
-hash_table.store('Aby')
-hash_table.store('Kay')
-print(hash_table)
+#hash_table = LinearHashTable(7)
+#hash_table.store('Moe')
+#hash_table.store('Bob')
+#hash_table.store('Zac')
+#hash_table.store('Aby')
+#hash_table.store('Kay')
+#print(hash_table)
 
 
 # hash_table = QuadraticHashTable(7)
