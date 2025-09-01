@@ -4,11 +4,9 @@ Isaac Ellwood iel17@uclive.ac.nz
 
 import classes
 
-#not needed
-from stats import StatCounter
-from classes import *
-
-
+#not needed (comment out when done with testing)
+#from stats import StatCounter
+#from classes import *
 
 def binary_stolen_plate_finder(stolen_plates, sighted_plates):
     """ Takes two lists of NumberPlates, returns a list and an integer.
@@ -33,28 +31,21 @@ def binary_stolen_plate_finder(stolen_plates, sighted_plates):
     # ---start student section---
     
     for sighted_plate in sighted_plates:
-        if(len(stolen_plates) == len(result_list)):
-            print("lets end this early")
-            break
-
-        begin_i = 0
-        end_i = len(stolen_plates) - 1
-
-        while begin_i <= end_i:
-            mid_i = begin_i + (end_i - begin_i) // 2
-
-            mid_val = stolen_plates[mid_i]
-
-            total_comparisons +=1
-            if(sighted_plate == mid_val):
-                result_list.append(sighted_plate)
-                break
-            elif(sighted_plate < mid_val):
-                total_comparisons += 1
-                end_i = mid_i - 1
+        #initial low/high
+        low = 0
+        high = (len(stolen_plates) - 1)
+        
+        while low < high:
+            mid = (low + high) // 2
+            total_comparisons += 1
+            if stolen_plates[mid] < sighted_plate:
+                low = mid + 1
             else:
-                total_comparisons += 1
-                begin_i = mid_i + 1
+                high = mid
+        
+        total_comparisons += 1
+        if low < len(stolen_plates) and stolen_plates[low] == sighted_plate:
+            result_list.append(sighted_plate)
 
     # ===end student section===
     return result_list, total_comparisons
