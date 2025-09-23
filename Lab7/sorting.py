@@ -35,6 +35,7 @@ def insertion_sort(file_name):
         currentvalue = alist[index]
         position = index
         while position > 0 and not stop:
+            n_comps += 1
             if alist[position -1] > currentvalue:
                 alist[position] = alist[position -1]
                 position = position - 1
@@ -55,11 +56,14 @@ def gap_insertion_sort(alist, start, gap):
       - students will need to insert code to count comparisons
       - hint, return the number of comparisons
     """
+    n_comps = 0
+
     for i in range (start +gap, len(alist), gap):
         currentvalue = alist[i]
         position = i
         stop = False
         while position >= gap and not (stop):
+            n_comps += 1
             if alist[position -gap] > currentvalue:
                 alist[position] = alist[position - gap]
                 position = position - gap
@@ -67,6 +71,7 @@ def gap_insertion_sort(alist, start, gap):
                 stop = True
         alist[position] = currentvalue
     # Note: you will need to count the comparisons
+    return n_comps
 
 
 def shell_sort(file_name):
@@ -81,7 +86,7 @@ def shell_sort(file_name):
     while gap > 0:
         gap_list.append(gap)  # build a list of gaps used as we go
         for start_position in range(gap):
-            gap_insertion_sort(alist, start_position, gap)
+            total_comparisons += gap_insertion_sort(alist, start_position, gap)
         gap = gap // 2
     # Note: you will need to count the comparisons
     print('Shell sort on {}, {} items, '.format(file_name, len(alist)))
@@ -100,7 +105,11 @@ def shell_sort2(file_name, gap_list):
     alist = load_file(file_name)
     total_comparisons = 0
     # ---start student section---
-    pass
+    for gap in gap_list:
+        if gap >= len(alist):
+            continue
+        for start_position in range(gap):
+            total_comparisons += gap_insertion_sort(alist, start_position, gap)
     # ===end student section===
     print(
     'Shellsort2 with gap list on {}, {} items'.format(
@@ -109,3 +118,30 @@ def shell_sort2(file_name, gap_list):
     print('  Used {}  comparisons.'.format(total_comparisons))
     print('    Gaps were {}: \n'.format(gap_list))
     return alist
+
+
+def main():
+    import tempfile
+
+    # The list you want to test
+    test_list = [5, 6, 7, 13, 12, 8, 14, 16, 10]
+    # The gap sequence you want to use
+    gaps = [5, 1]
+
+    # Create a temporary file with the test data
+    with tempfile.NamedTemporaryFile('w+t', delete=False) as tmpfile:
+        for num in test_list:
+            tmpfile.write(f"{num}\n")
+        tmpfile_name = tmpfile.name
+
+    # Run shell_sort2 on that file with the given gaps
+    sorted_list = shell_sort2(tmpfile_name, gaps)
+
+    print("Sorted list:", sorted_list)
+
+    # Cleanup: delete the temp file if you want
+    import os
+    os.remove(tmpfile_name)
+
+if __name__ == "__main__":
+    main()
