@@ -1,0 +1,22 @@
+from trees import *
+
+def find_in_order_successor_of_root(bst):
+    # Start from the root's right child
+    current = bst.root.right
+    if current is None:
+        # No right subtree, no in-order successor
+        return None
+    
+    # Find the leftmost node in right subtree
+    while current.left is not None:
+        current = current.left
+    return current.value
+
+list2 = load_file("list2.txt")
+
+my_favourite_bst = BinarySearchTree()
+
+for num in list2:
+    my_favourite_bst.insert(num)
+
+print(find_in_order_successor_of_root(my_favourite_bst))

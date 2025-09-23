@@ -118,7 +118,11 @@ class BinarySearchTree(object):
         no answer is returned.
         """
         # ---start student section---
-        pass
+        if subtree_root is None:
+            return
+        self._in_order_items(subtree_root.left, out_list)
+        out_list.append(subtree_root.value)
+        self._in_order_items(subtree_root.right, out_list)
         # ===end student section===
 
     # -------------------------------------------
@@ -147,7 +151,11 @@ class BinarySearchTree(object):
         no answer is returned.
         """
         # ---start student section---
-        pass
+        if subtree_root == None:
+            return
+        out_list.append(subtree_root.value)
+        self._pre_order_items(subtree_root.left, out_list)
+        self._pre_order_items(subtree_root.right, out_list)
         # ===end student section===
 
     # -------------------------------------------
@@ -171,7 +179,12 @@ class BinarySearchTree(object):
         """Performs a post-order traversal from subtree_root,
         adding the values from each node visited to 'out_list'."""
         # ---start student section---
-        pass
+        if subtree_root == None:
+            return
+        self._pre_order_items(subtree_root.left, out_list)
+        self._pre_order_items(subtree_root.right, out_list)
+        out_list.append(subtree_root.value)
+
         # ===end student section===
 
     # -------------------------------------------
