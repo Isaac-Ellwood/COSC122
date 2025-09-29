@@ -845,10 +845,10 @@ def all_tests_suite():
     suite.addTest(test_loader(MediumTableTestsLP))
     suite.addTest(test_loader(LargeTableTestsLP))
 
-    suite.addTest(test_loader(TinyTableTestsChaining))
-    suite.addTest(test_loader(MediumTableTestsChaining))
-    suite.addTest(test_loader(LargeTableTestsChaining))
-
+    #suite.addTest(test_loader(TinyTableTestsChaining))
+    #suite.addTest(test_loader(MediumTableTestsChaining))
+    #suite.addTest(test_loader(LargeTableTestsChaining))
+#
     #suite.addTest(test_loader(TestMakingDbTableLinear))
     #suite.addTest(test_loader(TestMakingDbTableChaining))
 

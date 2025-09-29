@@ -236,19 +236,19 @@ class LinearHashTable:
         item = (plate,value)
 
         # Get initial slot
-        index = self._hash(item)
+        index = NumberPlate.__hash__(plate)
 
         # If slot is empty, store item
-        if self.data_list[index] is None:
-            self.data_list[index] = item
+        if self.table_list[index % self.n_slots] is None:
+            self.table_list[index % self.n_slots] = item
         else:
             # Linear probing: try next slot until empty is found
             i = 1
             new_index = (index + i) % self.n_slots
-            while self.data_list[new_index] is not None:
+            while self.table_list[new_index] is not None:
                 i += 1
                 new_index = (index + i) % self.n_slots
-            self.data_list[new_index] = item
+            self.table_list[new_index] = item
         # ===end student section===
 
     def __contains__(self, plate):
@@ -256,21 +256,21 @@ class LinearHashTable:
         # ---start student section---
         item = plate # IDK
 
-        first_hash = self._hash(item)
+        first_hash = NumberPlate.__hash__(plate) % self.n_slots
         found = False
         # check item at initial slot
-        if self.data_list[first_hash] == item:
+        if self.table_list[first_hash] == item:
             found = True
         else:
             i = 1
             current_index = (first_hash + i) % self.n_slots
-            while self.data_list[current_index] is not None and not found:
+            while self.table_list[current_index] is not None and not found:
                 if current_index == first_hash:
                     # back to original hash and didn't find item
                     # so give up
                     # phew - the hashtable is full!
                     break
-                elif self.data_list[current_index] == item:
+                elif self.table_list[current_index] == item:
                     # horay we found it
                     found = True
                 else:
@@ -379,11 +379,17 @@ class ChainingHashTable:
         """
         # ---start student section---
         item = (plate, value)
+        index = NumberPlate.__hash__(plate) % self.n_slots
 
-        index = NumberPlate.__hash__(plate)
         self.n_plate_hashes += 1   # update whenever hash(number_plate) is called
-        self.table_list[index % self.n_slots].append((plate, value))
-        # Keep track of number of items in hash table
+
+        for i, (p,v) in enumerate(self.table_list[index]):
+            self.n_plate_comparisons += 1
+            if p == plate:
+                self.table_list[index][i] = item
+                return
+        
+        self.table_list[index].append(item)
         self.n_items += 1
         # ===end student section===
 
