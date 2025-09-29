@@ -82,6 +82,7 @@ class ListTable:
         updated = False
         while i < len(self.data_list) and not updated:
             current_plate, value = self.data_list[i]
+            self.n_plate_comparisons += 1 
             if current_plate == plate:
                 self.data_list[i] = record
                 updated = True
@@ -119,6 +120,8 @@ class ListTable:
         i = 0
         while i < len(self.data_list) and not found:
             current_plate, _ = self.data_list[i]
+            #Isaac
+            self.n_plate_comparisons += 1 
             if current_plate == plate:
                 found = True
             else:
@@ -154,6 +157,7 @@ class ListTable:
         i = 0
         while i < len(self.data_list) and not found:
             current_plate, current_value = self.data_list[i]
+            self.n_plate_comparisons += 1 
             if current_plate == plate:
                 found = True
             else:
@@ -226,13 +230,54 @@ class LinearHashTable:
         to update the value for a plate that is already in the table.
         """
         # ---start student section---
-        pass
+        if self.n_slots == self.n_items:
+            raise IndexError("Hash table is full!")
+
+        item = (plate,value)
+
+        # Get initial slot
+        index = self._hash(item)
+
+        # If slot is empty, store item
+        if self._data[index] is None:
+            self._data[index] = item
+        else:
+            # Linear probing: try next slot until empty is found
+            i = 1
+            new_index = (index + i) % self.n_slots
+            while self._data[new_index] is not None:
+                i += 1
+                new_index = (index + i) % self.n_slots
+            self._data[new_index] = item
         # ===end student section===
 
     def __contains__(self, plate):
         """ Returns True if the plate is in the table, otherwise False. """
         # ---start student section---
-        pass
+        item = plate # IDK
+
+        first_hash = self._hash(item)
+        found = False
+        # check item at initial slot
+        if self._data[first_hash] == item:
+            found = True
+        else:
+            i = 1
+            current_index = (first_hash + i) % self.n_slots
+            while self._data[current_index] is not None and not found:
+                if current_index == first_hash:
+                    # back to original hash and didn't find item
+                    # so give up
+                    # phew - the hashtable is full!
+                    break
+                elif self._data[current_index] == item:
+                    # horay we found it
+                    found = True
+                else:
+                    # try next slot
+                    i += 1
+                    current_index = (first_hash + i) % self.n_slots
+        return found
         # ===end student section===
 
     def __getitem__(self, plate):
@@ -245,7 +290,19 @@ class LinearHashTable:
             flag = my_linear_hashtable[plate]
         """
         # ---start student section---
-        pass
+        self.n_plate_hashes += 1
+        index = hash(plate) % self.n_slots
+
+        for i in range(self.n_slots):
+            current_index = (index + i) % self.n_slots
+            slot = self.table_list[current_index]
+            if slot is None:
+                return None
+            current_plate, current_value = slot
+            self.n_plate_comparisons += 1
+            if current_plate == plate:
+                return current_value
+        return None
         # ===end student section===
 
     def items(self):
