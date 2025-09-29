@@ -120,7 +120,7 @@ class ListTable:
         i = 0
         while i < len(self.data_list) and not found:
             current_plate, _ = self.data_list[i]
-            #Isaac
+            #My code
             self.n_plate_comparisons += 1 
             if current_plate == plate:
                 found = True
@@ -378,13 +378,18 @@ class ChainingHashTable:
 
         """
         # ---start student section---
-        pass
+        item = (plate, value)
+
+        index = NumberPlate.__hash__(plate)
+        self.table_list[index % self.n_slots].append((plate, value))
+        # Keep track of number of items in hash table
+        self.n_items += 1
         # ===end student section===
 
     def __contains__(self, plate):
         """ Returns True if the plate is in the table, otherwise False. """
         # ---start student section---
-        pass
+        return self.__getitem__(plate) != None
         # ===end student section===
 
     def __getitem__(self, plate):
@@ -394,7 +399,12 @@ class ChainingHashTable:
             flag = my_linear_hashtable[plate]
         """
         # ---start student section---
-        pass
+        index = NumberPlate.__hash__(plate)
+        chain = self.table_list[index % self.n_slots]
+        for item in chain:
+            if item[0] == plate:
+                return item[1]
+        return None
         # ===end student section===
 
     def items(self):
