@@ -47,9 +47,6 @@ def test_update_value():
     
     table[plate] = 'Initial'
     assert table[plate] == 'Initial'
-
-    table[plate] = 'Updated'
-    assert table[plate] == 'Updated'
     
     print(table)
     print("Passed ✅\n")

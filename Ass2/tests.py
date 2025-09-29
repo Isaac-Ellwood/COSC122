@@ -834,20 +834,20 @@ def all_tests_suite():
     suite = unittest.TestSuite()
     test_loader = unittest.defaultTestLoader.loadTestsFromTestCase
 
-    suite.addTest(test_loader(TinyTableTestsListTable))
-    suite.addTest(test_loader(MediumTableTestsListTable))
+    #suite.addTest(test_loader(TinyTableTestsListTable))
+    #suite.addTest(test_loader(MediumTableTestsListTable))
     # Note: LargeTableTestsListTable take a while to run (30+ minutes)! 
     # The large tests for proper hash tables (LP and chaining) should be
     # much faster.
-    suite.addTest(test_loader(LargeTableTestsListTable))
+    #suite.addTest(test_loader(LargeTableTestsListTable))
 
-    #suite.addTest(test_loader(TinyTableTestsLP))
-    #suite.addTest(test_loader(MediumTableTestsLP))
-    #suite.addTest(test_loader(LargeTableTestsLP))
+    suite.addTest(test_loader(TinyTableTestsLP))
+    suite.addTest(test_loader(MediumTableTestsLP))
+    suite.addTest(test_loader(LargeTableTestsLP))
 
-    #suite.addTest(test_loader(TinyTableTestsChaining))
-    #suite.addTest(test_loader(MediumTableTestsChaining))
-    #suite.addTest(test_loader(LargeTableTestsChaining))
+    suite.addTest(test_loader(TinyTableTestsChaining))
+    suite.addTest(test_loader(MediumTableTestsChaining))
+    suite.addTest(test_loader(LargeTableTestsChaining))
 
     #suite.addTest(test_loader(TestMakingDbTableLinear))
     #suite.addTest(test_loader(TestMakingDbTableChaining))
