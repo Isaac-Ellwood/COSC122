@@ -848,13 +848,13 @@ def all_tests_suite():
     suite.addTest(test_loader(TinyTableTestsChaining))
     suite.addTest(test_loader(MediumTableTestsChaining))
     suite.addTest(test_loader(LargeTableTestsChaining))
-#
-    #suite.addTest(test_loader(TestMakingDbTableLinear))
-    #suite.addTest(test_loader(TestMakingDbTableChaining))
 
-    #suite.addTest(test_loader(SmallProcessCameraTests))
-    #suite.addTest(test_loader(MediumProcessCameraTests))
-    #suite.addTest(test_loader(LargeProcessCameraTests))
+    suite.addTest(test_loader(TestMakingDbTableLinear))
+    suite.addTest(test_loader(TestMakingDbTableChaining))
+
+    suite.addTest(test_loader(SmallProcessCameraTests))
+    suite.addTest(test_loader(MediumProcessCameraTests))
+    suite.addTest(test_loader(LargeProcessCameraTests))
 
     return suite
 

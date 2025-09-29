@@ -9,8 +9,8 @@ with bigger data sets. Passing tests.py doesn't necessarily
 mean that your code works so make sure you don't rely solely
 on those tests...
 
-Author: <name here>
-Date: <data here>
+Author: Isaac Ellwood
+Date: 29/09/2025
 
 """
 
@@ -375,7 +375,7 @@ class ChainingHashTable:
         """
         # ---start student section---
         item = (plate, value)
-        index = NumberPlate.__hash__(plate) % self.n_slots
+        index = hash(plate) % self.n_slots
 
         self.n_plate_hashes += 1   # update whenever hash(number_plate) is called
 
@@ -392,7 +392,7 @@ class ChainingHashTable:
     def __contains__(self, plate):
         """ Returns True if the plate is in the table, otherwise False. """
         # ---start student section---
-        return self.__getitem__(plate) != None
+        return self.__getitem__(plate) is not None
         # ===end student section===
 
     def __getitem__(self, plate):
@@ -402,7 +402,7 @@ class ChainingHashTable:
             flag = my_linear_hashtable[plate]
         """
         # ---start student section---
-        index = NumberPlate.__hash__(plate)
+        index = hash(plate)
         self.n_plate_hashes += 1   # update whenever hash(number_plate) is called
         chain = self.table_list[index % self.n_slots]
         for item in chain:
@@ -474,7 +474,8 @@ def generate_db_hash_table(database_list, n_slots, table_class=LinearHashTable):
     """
     db_table = table_class(n_slots)
     # ---start student section---
-    pass
+    for plate, flag in database_list:
+        db_table[plate] = flag
     # ===end student section===
     return db_table
 
@@ -511,7 +512,15 @@ def process_camera_sightings(database_list, sightings, db_table_size, flagged_ta
     results_table = ChainingHashTable(flagged_table_size)
     # make the results table
     # ---start student section---
-    pass
+    for item in sightings:
+        plate, timestamp = item
+        if db_table.__contains__(plate):
+            flag = db_table[plate]
+            if flag != '':
+                if results_table.__contains__(plate):
+                    results_table[plate].append(timestamp)
+                else:
+                    results_table[plate] = [timestamp]
     # ===end student section===
     # return a tuple containing the db_table and the results table
     return db_table, results_table
@@ -597,7 +606,7 @@ def example_chaining_stuff():
 # Students can leave the following out in their submission
 if __name__ == '__main__':
     # uncomment the next line to run the ListTable doctests
-    # doctest.testmod()
+    doctest.testmod()
 
     # various examples for you to run and expand upon
     # run_simple_tests()
