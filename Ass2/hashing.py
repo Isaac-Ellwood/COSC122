@@ -230,54 +230,50 @@ class LinearHashTable:
         to update the value for a plate that is already in the table.
         """
         # ---start student section---
-        if self.n_slots == self.n_items:
-            raise IndexError("Hash table is full!")
+        if self.n_items == self.n_slots:
+            # Check if plate exists, if so update it
+            index = hash(plate) % self.n_slots
+            self.n_plate_hashes += 1
+            for i in range(self.n_slots):
+                current_index = (index + i) % self.n_slots
+                slot = self.table_list[current_index]
+                if slot is None:
+                    break
+                self.n_plate_comparisons += 1
+                if slot[0] == plate:
+                    self.table_list[current_index] = (plate, value)
+                    return
+            raise IndexError('Hashtable is full!')
 
-        item = (plate,value)
-
-        # Get initial slot
-        index = NumberPlate.__hash__(plate)
-
-        # If slot is empty, store item
-        if self.table_list[index % self.n_slots] is None:
-            self.table_list[index % self.n_slots] = item
-        else:
-            # Linear probing: try next slot until empty is found
-            i = 1
-            new_index = (index + i) % self.n_slots
-            while self.table_list[new_index] is not None:
-                i += 1
-                new_index = (index + i) % self.n_slots
-            self.table_list[new_index] = item
+        index = hash(plate) % self.n_slots
+        self.n_plate_hashes += 1
+        for i in range(self.n_slots):
+            current_index = (index + i) % self.n_slots
+            slot = self.table_list[current_index]
+            if slot is None:
+                self.table_list[current_index] = (plate, value)
+                self.n_items += 1
+                return
+            self.n_plate_comparisons += 1
+            if slot[0] == plate:
+                self.table_list[current_index] = (plate, value)
+                return
         # ===end student section===
 
     def __contains__(self, plate):
         """ Returns True if the plate is in the table, otherwise False. """
         # ---start student section---
-        item = plate # IDK
-
-        first_hash = NumberPlate.__hash__(plate) % self.n_slots
-        found = False
-        # check item at initial slot
-        if self.table_list[first_hash] == item:
-            found = True
-        else:
-            i = 1
-            current_index = (first_hash + i) % self.n_slots
-            while self.table_list[current_index] is not None and not found:
-                if current_index == first_hash:
-                    # back to original hash and didn't find item
-                    # so give up
-                    # phew - the hashtable is full!
-                    break
-                elif self.table_list[current_index] == item:
-                    # horay we found it
-                    found = True
-                else:
-                    # try next slot
-                    i += 1
-                    current_index = (first_hash + i) % self.n_slots
-        return found
+        index = hash(plate) % self.n_slots
+        self.n_plate_hashes += 1
+        for i in range(self.n_slots):
+            current_index = (index + i) % self.n_slots
+            slot = self.table_list[current_index]
+            if slot is None:
+                return False
+            self.n_plate_comparisons += 1
+            if slot[0] == plate:
+                return True
+        return False
         # ===end student section===
 
     def __getitem__(self, plate):
