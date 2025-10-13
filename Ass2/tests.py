@@ -839,22 +839,22 @@ def all_tests_suite():
     # Note: LargeTableTestsListTable take a while to run (30+ minutes)! 
     # The large tests for proper hash tables (LP and chaining) should be
     # much faster.
-    suite.addTest(test_loader(LargeTableTestsListTable))
+    #suite.addTest(test_loader(LargeTableTestsListTable))
 
-    #suite.addTest(test_loader(TinyTableTestsLP))
-    #suite.addTest(test_loader(MediumTableTestsLP))
-    #suite.addTest(test_loader(LargeTableTestsLP))
+    suite.addTest(test_loader(TinyTableTestsLP))
+    suite.addTest(test_loader(MediumTableTestsLP))
+    suite.addTest(test_loader(LargeTableTestsLP))
 
-    #suite.addTest(test_loader(TinyTableTestsChaining))
-    #suite.addTest(test_loader(MediumTableTestsChaining))
-    #suite.addTest(test_loader(LargeTableTestsChaining))
+    suite.addTest(test_loader(TinyTableTestsChaining))
+    suite.addTest(test_loader(MediumTableTestsChaining))
+    suite.addTest(test_loader(LargeTableTestsChaining))
 
-    #suite.addTest(test_loader(TestMakingDbTableLinear))
-    #suite.addTest(test_loader(TestMakingDbTableChaining))
+    suite.addTest(test_loader(TestMakingDbTableLinear))
+    suite.addTest(test_loader(TestMakingDbTableChaining))
 
-    #suite.addTest(test_loader(SmallProcessCameraTests))
-    #suite.addTest(test_loader(MediumProcessCameraTests))
-    #suite.addTest(test_loader(LargeProcessCameraTests))
+    suite.addTest(test_loader(SmallProcessCameraTests))
+    suite.addTest(test_loader(MediumProcessCameraTests))
+    suite.addTest(test_loader(LargeProcessCameraTests))
 
     return suite
 

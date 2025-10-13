@@ -9,8 +9,8 @@ with bigger data sets. Passing tests.py doesn't necessarily
 mean that your code works so make sure you don't rely solely
 on those tests...
 
-Author: <name here>
-Date: <data here>
+Author: Isaac Ellwood
+Date: 29/09/2025
 
 """
 
@@ -82,6 +82,7 @@ class ListTable:
         updated = False
         while i < len(self.data_list) and not updated:
             current_plate, value = self.data_list[i]
+            self.n_plate_comparisons += 1 
             if current_plate == plate:
                 self.data_list[i] = record
                 updated = True
@@ -119,6 +120,8 @@ class ListTable:
         i = 0
         while i < len(self.data_list) and not found:
             current_plate, _ = self.data_list[i]
+            #My code
+            self.n_plate_comparisons += 1 
             if current_plate == plate:
                 found = True
             else:
@@ -154,6 +157,7 @@ class ListTable:
         i = 0
         while i < len(self.data_list) and not found:
             current_plate, current_value = self.data_list[i]
+            self.n_plate_comparisons += 1 
             if current_plate == plate:
                 found = True
             else:
@@ -226,13 +230,50 @@ class LinearHashTable:
         to update the value for a plate that is already in the table.
         """
         # ---start student section---
-        pass
+        if self.n_items == self.n_slots:
+            # Check if plate exists, if so update it
+            index = hash(plate) % self.n_slots
+            self.n_plate_hashes += 1
+            for i in range(self.n_slots):
+                current_index = (index + i) % self.n_slots
+                slot = self.table_list[current_index]
+                if slot is None:
+                    break
+                self.n_plate_comparisons += 1
+                if slot[0] == plate:
+                    self.table_list[current_index] = (plate, value)
+                    return
+            raise IndexError('Hashtable is full!')
+
+        index = hash(plate) % self.n_slots
+        self.n_plate_hashes += 1
+        for i in range(self.n_slots):
+            current_index = (index + i) % self.n_slots
+            slot = self.table_list[current_index]
+            if slot is None:
+                self.table_list[current_index] = (plate, value)
+                self.n_items += 1
+                return
+            self.n_plate_comparisons += 1
+            if slot[0] == plate:
+                self.table_list[current_index] = (plate, value)
+                return
         # ===end student section===
 
     def __contains__(self, plate):
         """ Returns True if the plate is in the table, otherwise False. """
         # ---start student section---
-        pass
+        index = hash(plate) % self.n_slots
+        self.n_plate_hashes += 1
+        for i in range(self.n_slots):
+            current_index = (index + i) % self.n_slots
+            slot = self.table_list[current_index]
+            if slot is None:
+                return False
+            self.n_plate_comparisons += 1
+            if slot[0] == plate:
+                return True
+        return False
         # ===end student section===
 
     def __getitem__(self, plate):
@@ -245,7 +286,19 @@ class LinearHashTable:
             flag = my_linear_hashtable[plate]
         """
         # ---start student section---
-        pass
+        self.n_plate_hashes += 1
+        index = hash(plate) % self.n_slots
+
+        for i in range(self.n_slots):
+            current_index = (index + i) % self.n_slots
+            slot = self.table_list[current_index]
+            if slot is None:
+                return None
+            current_plate, current_value = slot
+            self.n_plate_comparisons += 1
+            if current_plate == plate:
+                return current_value
+        return None
         # ===end student section===
 
     def items(self):
@@ -321,13 +374,25 @@ class ChainingHashTable:
 
         """
         # ---start student section---
-        pass
+        item = (plate, value)
+        index = hash(plate) % self.n_slots
+
+        self.n_plate_hashes += 1   # update whenever hash(number_plate) is called
+
+        for i, (p,v) in enumerate(self.table_list[index]):
+            self.n_plate_comparisons += 1
+            if p == plate:
+                self.table_list[index][i] = item
+                return
+        
+        self.table_list[index].append(item)
+        self.n_items += 1
         # ===end student section===
 
     def __contains__(self, plate):
         """ Returns True if the plate is in the table, otherwise False. """
         # ---start student section---
-        pass
+        return self.__getitem__(plate) is not None
         # ===end student section===
 
     def __getitem__(self, plate):
@@ -337,7 +402,14 @@ class ChainingHashTable:
             flag = my_linear_hashtable[plate]
         """
         # ---start student section---
-        pass
+        index = hash(plate)
+        self.n_plate_hashes += 1   # update whenever hash(number_plate) is called
+        chain = self.table_list[index % self.n_slots]
+        for item in chain:
+            self.n_plate_comparisons +=1   # update whenever number plates are compared
+            if item[0] == plate:
+                return item[1]
+        return None
         # ===end student section===
 
     def items(self):
@@ -402,7 +474,8 @@ def generate_db_hash_table(database_list, n_slots, table_class=LinearHashTable):
     """
     db_table = table_class(n_slots)
     # ---start student section---
-    pass
+    for plate, flag in database_list:
+        db_table[plate] = flag
     # ===end student section===
     return db_table
 
@@ -439,7 +512,15 @@ def process_camera_sightings(database_list, sightings, db_table_size, flagged_ta
     results_table = ChainingHashTable(flagged_table_size)
     # make the results table
     # ---start student section---
-    pass
+    for item in sightings:
+        plate, timestamp = item
+        if db_table.__contains__(plate):
+            flag = db_table[plate]
+            if flag != '':
+                if results_table.__contains__(plate):
+                    results_table[plate].append(timestamp)
+                else:
+                    results_table[plate] = [timestamp]
     # ===end student section===
     # return a tuple containing the db_table and the results table
     return db_table, results_table
@@ -525,7 +606,7 @@ def example_chaining_stuff():
 # Students can leave the following out in their submission
 if __name__ == '__main__':
     # uncomment the next line to run the ListTable doctests
-    # doctest.testmod()
+    doctest.testmod()
 
     # various examples for you to run and expand upon
     # run_simple_tests()
