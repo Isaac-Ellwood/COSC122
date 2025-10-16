@@ -34,7 +34,24 @@ def uniques_by_merge_opp(plates1, plates2):
         # update i, j, and result_list as necessary. You should not be nesting any 
         # additional for or while loops inside this loop!
         # ---start student section---
-        pass
+        comparisons += 1
+        if plates1[i] == plates2[j]:
+            # Same plate → skip both
+            i += 1
+            j += 1
+        else:
+            comparisons += 1
+            if plates1[i] < plates2[j]:
+                # plate1 smaller → move ahead in list1
+                i += 1
+            else:
+                # plate2 smaller → unique in plates2
+                result_list.append(plates2[j])
+                j += 1
+                
+    while j < len(plates2):
+        result_list.append(plates2[j])
+        j += 1
     # ===end student section===
     # You will also need to add some code after the main while loop
     return result_list, comparisons
