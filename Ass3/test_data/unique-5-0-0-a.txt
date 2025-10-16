@@ -1,0 +1,7 @@
+list1=5
+IFT764 IPM797 NAZ428 QBK434 WBS400
+
+list2=0
+
+unique2=0
+

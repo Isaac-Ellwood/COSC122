@@ -1,0 +1,23 @@
+0
+
+10,5,0,5
+enqueue PGL906,1644,-5627,16
+enqueue AWZ043,-1368,-7894,72
+enqueue FUE515,-329,-4157,29
+enqueue RGA854,4515,-4222,76
+enqueue QQK420,-3599,7139,88
+enqueue FKK900,-7141,619,92
+enqueue IBN352,-2882,6914,72
+enqueue DTA760,7621,-3314,64
+enqueue JVQ673,-3397,4274,81
+enqueue NTS210,3222,9784,36
+remove AWZ043
+remove PGL906
+dequeue FKK900
+dequeue QQK420
+remove DTA760
+dequeue JVQ673
+remove RGA854
+remove NTS210
+dequeue IBN352
+dequeue FUE515

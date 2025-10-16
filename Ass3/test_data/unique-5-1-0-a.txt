@@ -1,0 +1,8 @@
+list1=5
+DXP459 FIP669 JIY721 OPL885 ZFM285
+
+list2=1
+DXP459
+
+unique2=0
+

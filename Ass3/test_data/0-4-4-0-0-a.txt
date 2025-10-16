@@ -1,0 +1,11 @@
+0
+
+4,4,0,0
+enqueue JIG972,3253,-3241,29
+enqueue FPK255,-7613,2687,90
+enqueue IAX561,7083,2335,48
+enqueue QVT757,4844,-4351,74
+dequeue FPK255
+dequeue QVT757
+dequeue JIG972
+dequeue IAX561

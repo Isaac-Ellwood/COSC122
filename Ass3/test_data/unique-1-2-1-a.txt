@@ -1,0 +1,9 @@
+list1=1
+SXS212
+
+list2=2
+SXS212 WZT732
+
+unique2=1
+WZT732
+

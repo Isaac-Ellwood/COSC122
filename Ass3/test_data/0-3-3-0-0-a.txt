@@ -1,0 +1,9 @@
+0
+
+3,3,0,0
+enqueue QTW475,-3611,-4920,79
+enqueue XQP559,-7577,3074,95
+enqueue REU190,-9743,-2744,6
+dequeue XQP559
+dequeue QTW475
+dequeue REU190

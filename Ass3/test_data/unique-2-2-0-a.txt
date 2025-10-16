@@ -1,0 +1,8 @@
+list1=2
+OXU133 WBZ270
+
+list2=2
+OXU133 WBZ270
+
+unique2=0
+

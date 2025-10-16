@@ -1,0 +1,23 @@
+0
+
+10,5,3,2
+enqueue PGE814,-1790,-2404,13
+dequeue PGE814
+enqueue ZBA363,-7577,8592,27
+enqueue TIT738,341,2112,88
+dequeue TIT738
+remove ZBA363
+enqueue NOG564,-6594,1136,8
+remove NOG564
+enqueue SNU044,5023,-1249,82
+update SNU044,-1432,76,92
+update SNU044,-9789,-7342,2
+enqueue PWM969,4218,-6161,20
+dequeue PWM969
+enqueue VRE608,9489,6876,89
+dequeue VRE608
+dequeue SNU044
+enqueue TNI445,-6237,-7651,87
+enqueue YZZ530,-7201,-3652,59
+update YZZ530,-3164,4530,34
+enqueue UQC195,6362,3829,43
