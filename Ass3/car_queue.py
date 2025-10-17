@@ -51,7 +51,7 @@ class CarHeapQueue():
     def _swap(self, i, j):
         """ Swap the cars at indices i and j. """
         # ---start student section---
-        pass
+        self._data[i], self._data[j] = self._data[j], self._data[i]
         # ===end student section===
 
     def _index_of_parent(self, index):
@@ -59,7 +59,9 @@ class CarHeapQueue():
         Return None if index is the root index, ie, 0.
         """
         # ---start student section---
-        pass
+        if index == 0:
+            return None
+        return (index - 1) // self.num_children
         # ===end student section===
 
     def _indices_of_children(self, index):
@@ -70,7 +72,12 @@ class CarHeapQueue():
             This will be used by the unit tests so you need to define it.
         """
         # ---start student section---
-        pass
+        children = []
+        for k in range(1, self.num_children + 1):
+            child_index = self.num_children * index + k
+            if child_index < len(self._data):
+                children.append(child_index)
+        return children
         # ===end student section===
 
     def _index_of_min_child(self, child_indices):
@@ -83,7 +90,17 @@ class CarHeapQueue():
         """
         index_of_min = None
         # ---start student section---
-        pass
+        index_of_min = None
+        # ---start student section---
+        min_child = None
+        for idx in child_indices:
+            if idx < len(self._data):
+                if min_child is None or self._data[idx].priority < min_child.priority:
+                    min_child = self._data[idx]
+                    index_of_min = idx
+                    self.num_comps += 1
+                else:
+                    self.num_comps += 1
         # ===end student section===
         return index_of_min
 
@@ -94,7 +111,13 @@ class CarHeapQueue():
             Don't forget to count any Priority n_comps that are made here.
         """
         # ---start student section---
-        pass
+        parent = self._index_of_parent(index)
+        if parent is None:
+            return
+        self.num_comps += 1
+        if self._data[index].priority < self._data[parent].priority:
+            self._swap(index, parent)
+            self._sift_up(parent)
         # ===end student section===
 
     def _sift_down(self, index):
@@ -103,7 +126,16 @@ class CarHeapQueue():
         Don't forget to count any Priority n_comps that are made here.
         """
         # ---start student section---
-        pass
+        child_indices = self._indices_of_children(index)
+        if not child_indices:
+            return
+        min_child_index = self._index_of_min_child(child_indices)
+        if min_child_index is None:
+            return
+        self.num_comps += 1
+        if self._data[min_child_index].priority < self._data[index].priority:
+            self._swap(index, min_child_index)
+            self._sift_down(min_child_index)
         # ===end student section===
 
     def _heapify(self, start_data):
@@ -116,7 +148,8 @@ class CarHeapQueue():
         # We first make sure that we're only including Cars
         assert isinstance(car, Car)
         # ---start student section---
-        pass
+        self._data.append(car)
+        self._sift_up(len(self._data) - 1)
         # ===end student section===
 
     def dequeue(self):
@@ -125,7 +158,14 @@ class CarHeapQueue():
         Must raise IndexError("Can't dequeue from empty queue!") if the queue is empty.
         """
         # ---start student section---
-        pass
+        if not self._data:
+            raise IndexError("Can't dequeue from empty queue!")
+        min_car = self._data[0]
+        last = self._data.pop()
+        if self._data:
+            self._data[0] = last
+            self._sift_down(0)
+        return min_car
         # ===end student section===
 
     def __contains__(self, plate):
